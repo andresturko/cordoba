@@ -12,7 +12,7 @@ module.exports.register = (req, res) => {
     res.status(201).send({ auth: true, token });
 };
 
-exports.login = (req, res) => {
+module.exports.login = (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username);
     if (!user) return res.status(404).send('usuario inexistente.');

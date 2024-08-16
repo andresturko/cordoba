@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+
 module.exports = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     if (!authHeader) return res.status(403).send({ auth: false, message: 'Falta token' });
