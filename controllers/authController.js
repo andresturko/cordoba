@@ -1,18 +1,24 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const users = require('../models/userModel');
-const config = require('../config/config');
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import users from '../models/userModel.js';
+import {config} from '../config/config.js';
+//const jwt = require('jsonwebtoken');
+//const bcrypt = require('bcryptjs');
+//const users = require('../models/userModel');
+//const config = require('../config/config');
 
-module.exports.register = (req, res) => {
+export const register = (req, res) => {
     const { username, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 8);
     const newUser = { id: users.length + 1, username, password: hashedPassword };
     users.push(newUser);
     const token = jwt.sign({ id: newUser.id }, config.secretKey, { expiresIn: config.tokenExpiresIn });
-    res.status(201).send({ auth: true, token });
+    //res.status(201).send({ auth: true, token });
+    res.status(201).json({auth: 'true', token});
+    console.log("desde controller/register", users);
 };
 
-module.exports.login = (req, res) => {
+export const login = (req, res) => {
     const { username, password } = req.body;
     const user = users.find(u => u.username === username);
     if (!user) return res.status(404).send('usuario inexistente.');

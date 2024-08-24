@@ -1,6 +1,7 @@
-require('dotenv').config();
+import 'dotenv/config';
+//require('dotenv').config();
 
-module.exports={
+export const config = {
     secretKey: process.env.JWT_SECRET,
     tokenExpiresIn: process.env.JWT_EXPIRATION
 };
