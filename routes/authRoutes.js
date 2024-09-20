@@ -20,7 +20,7 @@ router.get('/protected', authMiddleware, async (req, res) => {
             const database = client.db("cordoba");
             const nombres = database.collection("users");
 
-            
+
             // Execute query
             const documentos = await nombres.find({}).toArray();
             const docsJson = JSON.stringify(documentos, null, 2);
@@ -33,9 +33,10 @@ router.get('/protected', authMiddleware, async (req, res) => {
 
       } catch (error) {
             console.log("todo mal loco", error);
-      } finally {
-            await client.close();
-      }
+      } 
+      //finally {
+      //      await client.close();
+      //}
 }
 );
 
@@ -48,11 +49,11 @@ router.get('/protected/:username', authMiddleware, async (req, res) => {
             const nombres = database.collection("users");
 
             // Query for a movie that has the title 'The Room'
-            const query = {"username": req.params.username};
+            const query = { "username": req.params.username };
 
             const options = {
 
-                  sort: { "imdb.rating": -1 },
+                  sort: { "username": -1 },
 
                   projection: { _id: 0, username: 1, password: 1 },
             };
@@ -62,23 +63,19 @@ router.get('/protected/:username', authMiddleware, async (req, res) => {
 
             // Print the document returned by findOne()
             console.log("req =", query);
-
             console.log("findone:", documento);
 
-            
             const docJson = JSON.stringify(documento, null, 2);
 
-
             console.log("JSON=", docJson);
-
             res.status(200).json(JSON.parse(docJson));
-
 
       } catch (error) {
             console.log("todo mal loco", error);
-      } finally {
-            await client.close();
       }
+      // finally {
+      //      await client.close();
+      //}
 }
 );
 

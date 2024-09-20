@@ -1,3 +1,5 @@
-const users=[];
+//sin uso, cargaba usuarios en memoria 
 
-export default users;
+//const users=[];
+
+//export default users;
